@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aktor.Kote", "Aktor.Kote\Aktor.Kote.csproj", "{CF774DBA-0ACC-4A2F-8ECE-25776F6F9F16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aktor.Kote.Akka", "Aktor.Kote.Akka\Aktor.Kote.Akka.csproj", "{83DA1B8E-5D3A-441E-BE54-272F6970EF7D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF774DBA-0ACC-4A2F-8ECE-25776F6F9F16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF774DBA-0ACC-4A2F-8ECE-25776F6F9F16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF774DBA-0ACC-4A2F-8ECE-25776F6F9F16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF774DBA-0ACC-4A2F-8ECE-25776F6F9F16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83DA1B8E-5D3A-441E-BE54-272F6970EF7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83DA1B8E-5D3A-441E-BE54-272F6970EF7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83DA1B8E-5D3A-441E-BE54-272F6970EF7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83DA1B8E-5D3A-441E-BE54-272F6970EF7D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
