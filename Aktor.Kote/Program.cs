@@ -2,6 +2,7 @@
 using Akka.Actor;
 using Aktor.Kote.Akka.Actors;
 using Aktor.Kote.Akka.Actors.Messages;
+using Aktor.Kote.Utils;
 
 namespace Aktor.Kote
 {
@@ -9,8 +10,8 @@ namespace Aktor.Kote
     {
         public static void Main()
         {
-            ActorWork();
-            Console.WriteLine("Hello World!");
+            //ActorWork();
+            Console.WriteLine(new KoteNameGenerator("names.json").GetKoteName());
         }
 
         private static void ActorWork()

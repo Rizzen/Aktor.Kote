@@ -8,6 +8,7 @@ namespace Aktor.Kote.Akka.Actors
     {
         public KoteCoordinatorActor()
         {
+            Receive<CoordinatorStartMessage>(Start);
             Receive<KoteCreateMessage>(CreateKote);
         }
 
@@ -23,11 +24,16 @@ namespace Aktor.Kote.Akka.Actors
             });
         }
 
+        private bool Start(CoordinatorStartMessage message)
+        {
+            return true;
+        }
+
         private bool CreateKote(KoteCreateMessage message)
         {
-            var prop = Props.Create<KoteActor>(message.Name);
+            var prop = Props.Create<KoteActor>();
             
-            Context.ActorOf(prop, message.Name);
+            Context.ActorOf(prop, message.Name).Tell(message);
             
             return true;
         }

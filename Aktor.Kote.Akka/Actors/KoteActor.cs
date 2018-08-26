@@ -6,16 +6,12 @@ namespace Aktor.Kote.Akka.Actors
 {
     public class KoteActor : ReceiveActor
     {
-        private readonly string _name;
+        private string _name;
         
-        public KoteActor(string name)
-        {
-            _name = name;
-            
-            Console.WriteLine($"{name} just born");
-            
+        public KoteActor()
+        {   
             Receive<KoteStatusMessage>(StatusHandle);
-            Receive<KoteInfoMessage>(GreetNewKote);
+            Receive<KoteCreateMessage>(Born);
             ReceiveAny(DefaultHandle);
         }
 
@@ -25,9 +21,11 @@ namespace Aktor.Kote.Akka.Actors
             return true;
         }
 
-        private bool GreetNewKote(KoteInfoMessage message)
+        private bool Born(KoteCreateMessage message)
         {
-            Console.WriteLine($"Hello, Kote {message}");
+            _name = message.Name;
+            Console.WriteLine($"{_name} just born\n{_name} : Meow!");
+
             return true;
         }
 
