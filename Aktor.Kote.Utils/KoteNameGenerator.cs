@@ -6,6 +6,8 @@ namespace Aktor.Kote.Utils
 {
     public class KoteNameGenerator
     {
+        public static readonly KoteNameGenerator Default = new KoteNameGenerator(AppDomain.CurrentDomain.BaseDirectory + "\\names.json");
+        
         private readonly string[] _names;
         private readonly Random _random = new Random();
         

@@ -8,4 +8,10 @@
       <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="names.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

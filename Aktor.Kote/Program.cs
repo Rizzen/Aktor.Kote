@@ -11,7 +11,7 @@ namespace Aktor.Kote
         public static void Main()
         {
             //ActorWork();
-            Console.WriteLine(new KoteNameGenerator("names.json").GetKoteName());
+            Console.WriteLine(KoteNameGenerator.Default.GetKoteName());
         }
 
         private static void ActorWork()
