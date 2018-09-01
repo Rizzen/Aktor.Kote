@@ -1,5 +1,7 @@
 using System;
+using System.Threading;
 using Akka.Actor;
+using Aktor.Kote.Akka.Actors.FSM;
 using Aktor.Kote.Akka.Actors.Messages;
 
 namespace Aktor.Kote.Akka.Actors
@@ -32,8 +34,12 @@ namespace Aktor.Kote.Akka.Actors
         private bool CreateKote(KoteCreateMessage message)
         {
             var prop = Props.Create<KoteActor>();
+
+            var kote = Context.ActorOf(prop, message.Name);
             
-            Context.ActorOf(prop, message.Name).Tell(message);
+            kote.Tell(FallAsleep.Instance);
+            Thread.Sleep(1500);
+            kote.Tell(new WakeUp {With = "Hey, kotik, wake up!"});
             
             return true;
         }

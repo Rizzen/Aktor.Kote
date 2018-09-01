@@ -1,6 +1,7 @@
 ﻿using System;
 using Akka.Actor;
 using Aktor.Kote.Akka.Actors;
+using Aktor.Kote.Akka.Actors.FSM;
 using Aktor.Kote.Akka.Actors.Messages;
 using Aktor.Kote.Utils;
 
@@ -10,16 +11,15 @@ namespace Aktor.Kote
     {
         public static void Main()
         {
-            //ActorWork();
-            Console.WriteLine(KoteNameGenerator.Default.GetKoteName());
+            ActorWork();
         }
 
         private static void ActorWork()
         {
             var actorSystem = ActorSystem.Create("KoteActorSystem");
-            var koteCoordinatorActor = actorSystem.ActorOf<KoteCoordinatorActor>("KoteSupervisor");
-            koteCoordinatorActor.Tell(new KoteCreateMessage{Name = "Vasya"});
             
+            var koteCoordinatorActor = actorSystem.ActorOf<KoteCoordinatorActor>("KoteSupervisor");
+            koteCoordinatorActor.Tell(new KoteCreateMessage {Name = KoteNameGenerator.Default.GetKoteName()});
             actorSystem.WhenTerminated.Wait();
         }
     }

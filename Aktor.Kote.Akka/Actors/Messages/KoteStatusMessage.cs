@@ -1,7 +1,9 @@
+using Aktor.Kote.Akka.Actors.FSM;
+
 namespace Aktor.Kote.Akka.Actors.Messages
 {
-    public class KoteStatusMessage
+    public class KoteStateChangeMessage
     {
-        public string Status { get; set; }
+        public KoteState State { get; set; }
     }
 }
