@@ -9,4 +9,8 @@
       <PackageReference Include="Akka.Persistence" Version="1.3.9" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Aktor.Kote.Utils\Aktor.Kote.Utils.csproj" />
+    </ItemGroup>
+
 </Project>

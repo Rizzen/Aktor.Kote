@@ -17,9 +17,9 @@ namespace Aktor.Kote
         private static void ActorWork()
         {
             var actorSystem = ActorSystem.Create("KoteActorSystem");
-            
-            var koteCoordinatorActor = actorSystem.ActorOf<KoteCoordinatorActor>("KoteSupervisor");
-            koteCoordinatorActor.Tell(new KoteCreateMessage {Name = KoteNameGenerator.Default.GetKoteName()});
+            var prop = new Props(typeof(KoteCoordinatorActor),new object[]{10});
+            var koteCoordinatorActor = actorSystem.ActorOf(prop, "KoteSupervisor");
+            koteCoordinatorActor.Tell(new CoordinatorStartMessage());
             actorSystem.WhenTerminated.Wait();
         }
     }

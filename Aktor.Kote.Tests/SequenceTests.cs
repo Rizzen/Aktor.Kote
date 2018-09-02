@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Aktor.Kote.Tests
 {
-    public class AkkaKoteTests
+    public class SequenceTests
     {
         [Fact]
         public async void SequenceTest()

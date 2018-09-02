@@ -47,7 +47,7 @@ namespace Aktor.Kote.Akka.Actors
             
             When(KoteState.Walking, state =>
             {
-                SetTimer("walkingTimer", $"Kote {_name} walking", TimeSpan.FromSeconds(1), repeat: true);
+                SetTimer("walkingTimer", $"Kote {_name} walking", TimeSpan.FromSeconds(1), true);
                 return null;
             });
             
@@ -55,16 +55,14 @@ namespace Aktor.Kote.Akka.Actors
             
             OnTransition((state, nextState) =>
             {
-                _log.Info($"Kote {_name} transitioning from {state} to {nextState}");
-                
                 if (state == KoteState.Sleeping)
-                    _log.Info($"Kote {_name} awake");
+                    _log.Warning($"Kote {_name} awake");
                 
                 if (state == KoteState.Walking)
                     CancelTimer("walkingTimer");
 
                 if (nextState == KoteState.Sleeping)
-                    _log.Info($"Kote {_name} is now sleeping");
+                    _log.Warning($"Kote {_name} is now sleeping");
             });
             
             Initialize();
@@ -86,7 +84,6 @@ namespace Aktor.Kote.Akka.Actors
         {
             _name = name;
             _log.Info($"{_name} just born\n{_name} : Meow!");
-            
             return Stay();
         }
         
@@ -94,10 +91,13 @@ namespace Aktor.Kote.Akka.Actors
         {
             var newHunger = signs.Hunger + hunger;
             
-            _log.Info($"{_name} is now hungry on {newHunger}");
+            _log.Warning($"{_name} is now hungry on {newHunger}");
             
-            if (newHunger > 80)
+            if (newHunger > 80 && newHunger < 100)
                 return GoTo(KoteState.Hunger).Using(new VitalSigns(newHunger));
+            
+            if (newHunger >= 100)
+                throw new KoteDeadException(_name);
             
             return Stay().Using(new VitalSigns(newHunger));
         }
