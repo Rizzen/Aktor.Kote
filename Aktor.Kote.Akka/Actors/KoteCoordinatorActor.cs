@@ -21,21 +21,6 @@ namespace Aktor.Kote.Akka.Actors
             Receive<KoteCreateMessage>(CreateKote);
         }
 
-        protected override SupervisorStrategy SupervisorStrategy()
-        {
-            return new OneForOneStrategy(10, 30_000, x =>
-            {
-                switch (x)
-                {
-                    case NotSupportedException _: return Directive.Restart;
-                    case KoteDeadException kde:
-                        _log.Error($"{kde.Name} is dead!!");
-                        return Directive.Stop;
-                    default: return Directive.Stop;
-                }
-            },false);
-        }
-
         private bool Start(CoordinatorStartMessage message)
         {
             return CreateKotes(_koteCount);
@@ -62,10 +47,22 @@ namespace Aktor.Kote.Akka.Actors
             var kote = Context.ActorOf(prop, message.Name);
             
             kote.Tell(new Initialize(message.Name));
-            kote.Tell(FallAsleep.Instance);
-            kote.Tell("Hey kote");
-            
             return true;
+        }
+        
+        protected override SupervisorStrategy SupervisorStrategy()
+        {
+            return new OneForOneStrategy(10, 30_000, x =>
+            {
+                switch (x)
+                {
+                    case NotSupportedException _: return Directive.Restart;
+                    case KoteDeadException kde:
+                        _log.Error($"{kde.Name} is dead!!");
+                        return Directive.Stop;
+                    default: return Directive.Stop;
+                }
+            },false);
         }
     }
 }
