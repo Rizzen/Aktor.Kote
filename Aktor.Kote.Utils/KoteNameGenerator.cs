@@ -18,7 +18,7 @@ namespace Aktor.Kote.Utils
 
         public string GetKoteName()
         {
-            return $"{_names[_random.Next(_names.Length - 1)]}{DateTimeOffset.Now.ToUnixTimeMilliseconds()}";
+            return $"{_names[_random.Next(_names.Length - 1)]}@{Sequence.GetId()}";
         }
     }
 }

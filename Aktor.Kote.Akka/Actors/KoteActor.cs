@@ -1,5 +1,7 @@
 using System;
+using Akka;
 using Akka.Actor;
+using Akka.Event;
 using Aktor.Kote.Akka.Actors.FSM;
 using Aktor.Kote.Akka.Actors.Messages;
 
@@ -7,20 +9,26 @@ namespace Aktor.Kote.Akka.Actors
 {
     public class KoteActor : FSM<KoteState, IData>
     {
-        private string _name;
+        private string _name; 
+        private readonly ICancelable _hungerControl;
+        private readonly ILoggingAdapter _log = Context.GetLogger();
         
         public KoteActor()
-        {   
-            StartWith(KoteState.Idle, Uninitialized.Instance);
+        {
+            _hungerControl = Context.System.Scheduler.ScheduleTellRepeatedlyCancelable(TimeSpan.FromSeconds(5),
+                TimeSpan.FromSeconds(5), Self, new GrowHungry(10), Self);
+            
+            StartWith(KoteState.Idle, new VitalSigns(5));
             
             When(KoteState.Idle, state =>
             {
                 switch (state.FsmEvent)
                 {
-                    case FallAsleep fallAsleep: return GoTo(KoteState.Sleeping);
-                    case Uninitialized uninitialized: break;
+                    case FallAsleep _:
+                        return GoTo(KoteState.Sleeping);
+                    case Initialize init : 
+                        return Born(init.Name);
                 }
-                
                 return null;
             });
             
@@ -29,48 +37,75 @@ namespace Aktor.Kote.Akka.Actors
                 switch (state.FsmEvent)
                 {
                     case WakeUp wakeUp :
-                        Console.WriteLine($"Kote woke up from \"{wakeUp.With}\"");
                         return GoTo(KoteState.Idle);
                 }
 
-                return Stay();
+                return null;
             });
             
-            WhenUnhandled(state =>
+            When(KoteState.Hunger, state => null );
+            
+            When(KoteState.Walking, state =>
             {
-                Console.WriteLine("Received unhandled " + state.FsmEvent);
-                return Stay();
+                SetTimer("walkingTimer", $"Kote {_name} walking", TimeSpan.FromSeconds(1), repeat: true);
+                return null;
             });
+            
+            WhenUnhandled(DefaultHandle);
             
             OnTransition((state, nextState) =>
             {
-                switch (nextState)
-                {
-                    case KoteState.Sleeping: Console.WriteLine($"Kote {_name} is now sleeping");
-                        break;
-                }
+                _log.Info($"Kote {_name} transitioning from {state} to {nextState}");
+                
+                if (state == KoteState.Sleeping)
+                    _log.Info($"Kote {_name} awake");
+                
+                if (state == KoteState.Walking)
+                    CancelTimer("walkingTimer");
+
+                if (nextState == KoteState.Sleeping)
+                    _log.Info($"Kote {_name} is now sleeping");
             });
+            
             Initialize();
         }
-
-        private bool StatusHandle(KoteStateChangeMessage statusMessage)
+        
+        private State<KoteState, IData> DefaultHandle(Event<IData> state)
         {
-            Console.WriteLine($"Actor {Self.Path} : Kote {_name} received status {statusMessage.State}");
-            return true;
+            switch (state.FsmEvent)
+            {
+                case GrowHungry gh when state.StateData is VitalSigns vs:
+                    return Hunger(vs, gh.Hunger);
+            }
+            
+            _log.Info($"Received {state.FsmEvent}");
+            return Stay();
         }
 
-        private bool Born(KoteCreateMessage message)
+        private State<KoteState, IData> Born(string name)
         {
-            _name = message.Name;
-            Console.WriteLine($"{_name} just born\n{_name} : Meow!");
-
-            return true;
+            _name = name;
+            _log.Info($"{_name} just born\n{_name} : Meow!");
+            
+            return Stay();
+        }
+        
+        private State<KoteState, IData> Hunger(VitalSigns signs, int hunger)
+        {
+            var newHunger = signs.Hunger + hunger;
+            
+            _log.Info($"{_name} is now hungry on {newHunger}");
+            
+            if (newHunger > 80)
+                return GoTo(KoteState.Hunger).Using(new VitalSigns(newHunger));
+            
+            return Stay().Using(new VitalSigns(newHunger));
         }
 
-        private void DefaultHandle<T>(T message)
+        protected override void PostStop()
         {
-            Console.WriteLine("Default Handle");
-            throw new NotSupportedException();
+            _hungerControl.Cancel();
+            base.PostStop();
         }
     }
 }

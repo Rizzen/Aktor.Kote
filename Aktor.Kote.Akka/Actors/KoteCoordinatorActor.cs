@@ -37,9 +37,9 @@ namespace Aktor.Kote.Akka.Actors
 
             var kote = Context.ActorOf(prop, message.Name);
             
+            kote.Tell(new Initialize(message.Name));
             kote.Tell(FallAsleep.Instance);
-            Thread.Sleep(1500);
-            kote.Tell(new WakeUp {With = "Hey, kotik, wake up!"});
+            kote.Tell("Hey kote");
             
             return true;
         }

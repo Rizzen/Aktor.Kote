@@ -5,6 +5,7 @@ namespace Aktor.Kote.Akka.Actors.FSM
         Sleeping,
         Idle,
         Walking,
+        Hunger,
         Dead
     }
 }

@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aktor.Kote.Akka", "Aktor.Ko
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aktor.Kote.Utils", "Aktor.Kote.Utils\Aktor.Kote.Utils.csproj", "{32CAA902-84AF-4878-BBE1-25E9626F7BA3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aktor.Kote.Tests", "Aktor.Kote.Tests\Aktor.Kote.Tests.csproj", "{E279FC35-88D9-4037-9032-2114E993B25C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{32CAA902-84AF-4878-BBE1-25E9626F7BA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32CAA902-84AF-4878-BBE1-25E9626F7BA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32CAA902-84AF-4878-BBE1-25E9626F7BA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E279FC35-88D9-4037-9032-2114E993B25C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E279FC35-88D9-4037-9032-2114E993B25C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E279FC35-88D9-4037-9032-2114E993B25C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E279FC35-88D9-4037-9032-2114E993B25C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
