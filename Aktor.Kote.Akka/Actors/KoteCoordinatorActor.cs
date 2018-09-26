@@ -1,5 +1,4 @@
 using System;
-using System.Threading;
 using Akka.Actor;
 using Akka.Event;
 using Aktor.Kote.Akka.Actors.FSM;

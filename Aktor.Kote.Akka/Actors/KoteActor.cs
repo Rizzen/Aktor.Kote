@@ -1,9 +1,7 @@
 using System;
-using Akka;
 using Akka.Actor;
 using Akka.Event;
 using Aktor.Kote.Akka.Actors.FSM;
-using Aktor.Kote.Akka.Actors.Messages;
 
 namespace Aktor.Kote.Akka.Actors
 {
