@@ -1,4 +1,6 @@
 module Aktor.Kote.Akka.FSharp.Kote
+
+open System
 open Akka.Actor
 open Akka.FSharp
 
@@ -11,7 +13,14 @@ type KoteMessage =
     
 type KoteState = { Name:string; Hunger:int }
 
+
 let handleStatus (status:KoteState) = printfn "Kote %s hunger on %A" status.Name status.Hunger
+
+let commonHungerHandler state value hungerState notHungerState = 
+    let newHunger = state.Hunger + value
+    if (newHunger >= 50) 
+        then hungerState { Name = state.Name; Hunger = newHunger }
+    else notHungerState { Name = state.Name; Hunger = newHunger }
 
 let koteActor name (mailbox: Actor<KoteMessage>) = 
     let rec idle (state:KoteState) = actor {
@@ -19,13 +28,9 @@ let koteActor name (mailbox: Actor<KoteMessage>) =
         
         match message with 
         | Stroke s -> printf "Kote %s say Purr Purr Purr \n" name
-        | Hunger h -> let newHunger = state.Hunger + h
-                      if (newHunger >= 50) 
-                      then printfn "Kote is now Hungry!"
-                           return! hungry {Name = name; Hunger = newHunger}
-                      printfn "Kote received Hunger %A" h
-                      return! idle { Name = name; Hunger = newHunger}
+        | Hunger h -> return! commonHungerHandler state h hungry idle
         | Status s -> handleStatus state
+                      mailbox.Sender() <! (sprintf "name: %s, hunger: %A" state.Name state.Hunger)
         
         return! idle state
         }
@@ -35,15 +40,23 @@ let koteActor name (mailbox: Actor<KoteMessage>) =
             match message with 
             | Stroke s -> printfn "Meow Meow Meow"
             | Hunger h -> let newHunger = state.Hunger + h
-                          if (newHunger >= 50) then return! death state
+                          if (newHunger >= 50) 
+                            then return! death state
                           printfn "Kat Need Food! Hunger is %A" (newHunger)
-                          return! hungry { Name=name; Hunger=newHunger }
+                          return! hungry { Name = name; Hunger = newHunger }
             | Status s -> handleStatus state
             
             return! hungry state
         }
         and sleeping state = actor {
             let! message = mailbox.Receive()
+            
+            match message with 
+            | Stroke s -> printfn "Murr"
+                          return! idle state
+            | Hunger h -> return! commonHungerHandler state h hungry idle
+            | Status s -> handleStatus state
+            
             return! sleeping state
         }
         and death state = actor {
