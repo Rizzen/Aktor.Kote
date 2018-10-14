@@ -12,6 +12,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Aktor.Kote.Akka.FSharp", "A
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Aktor.Kote.Fsharp", "Aktor.Kote.Fsharp\Aktor.Kote.Fsharp.fsproj", "{DA16863E-8DD2-4CF1-AE38-F91FECED42D1}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Aktor.Kote.Giraffe", "Aktor.Kote.Giraffe\src\Aktor.Kote.Giraffe\Aktor.Kote.Giraffe.fsproj", "{08DF2D1C-F396-4822-939E-E1F3139B2DDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{DA16863E-8DD2-4CF1-AE38-F91FECED42D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA16863E-8DD2-4CF1-AE38-F91FECED42D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA16863E-8DD2-4CF1-AE38-F91FECED42D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08DF2D1C-F396-4822-939E-E1F3139B2DDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08DF2D1C-F396-4822-939E-E1F3139B2DDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08DF2D1C-F396-4822-939E-E1F3139B2DDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08DF2D1C-F396-4822-939E-E1F3139B2DDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
