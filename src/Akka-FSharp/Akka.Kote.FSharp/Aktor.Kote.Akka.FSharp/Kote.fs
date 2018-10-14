@@ -4,7 +4,6 @@ open System
 open Akka.Actor
 open Akka.FSharp
 
-let system = System.create "system" (Configuration.defaultConfig())
 
 type KoteMessage = 
     | Stroke of unit
@@ -13,6 +12,7 @@ type KoteMessage =
     
 type KoteState = { Name:string; Hunger:int }
 
+let system = System.create "system" (Configuration.defaultConfig())
 
 let handleStatus (status:KoteState) = printfn "Kote %s hunger on %A" status.Name status.Hunger
 
@@ -22,6 +22,9 @@ let commonHungerHandler state value hungerState notHungerState =
         then hungerState { Name = state.Name; Hunger = newHunger }
     else notHungerState { Name = state.Name; Hunger = newHunger }
 
+//---------------- 
+// FSM Actor
+//----------------
 let koteActor name (mailbox: Actor<KoteMessage>) = 
     let rec idle (state:KoteState) = actor {
         let! message = mailbox.Receive()
@@ -35,7 +38,7 @@ let koteActor name (mailbox: Actor<KoteMessage>) =
         return! idle state
         }
         and hungry state = actor {
-            let! message = mailbox.Receive() 
+            let! message = mailbox.Receive()
             
             match message with 
             | Stroke s -> printfn "Meow Meow Meow"

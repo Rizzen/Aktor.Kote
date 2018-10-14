@@ -11,6 +11,7 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.*" />
         <PackageReference Include="Giraffe" Version="2.0.*" />
+        <PackageReference Include="SwaggerForFsharp.Giraffe" Version="1.0.0-CI00006" />
     </ItemGroup>
 
     <ItemGroup>
@@ -28,7 +29,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Aktor.Kote.Akka.FSharp\Aktor.Kote.Akka.FSharp.fsproj" />
+      <ProjectReference Include="..\..\Aktor.Kote.Akka.FSharp\Aktor.Kote.Akka.FSharp.fsproj" />
     </ItemGroup>
 
 

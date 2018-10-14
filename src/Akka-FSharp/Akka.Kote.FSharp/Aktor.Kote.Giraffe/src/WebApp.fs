@@ -12,7 +12,12 @@ open Aktor.Kote.Giraffe.Actors
 open Akka.FSharp
 open Akka.Actor
 open Giraffe.HttpStatusCodeHandlers
+open SwaggerForFsharp.Giraffe.Dsl
+open SwaggerForFsharp.Giraffe
 
+open SwaggerForFsharp.Giraffe.Common
+open SwaggerForFsharp.Giraffe.Generator
+open SwaggerForFsharp.Giraffe.Dsl
 // ---------------------------------
 // Models
 // ---------------------------------
@@ -54,20 +59,53 @@ let indexHandler (name : string) =
     let model     = { Text = greetings }
     let view      = Views.index model
     htmlView view
-    
+
 let katsHandler = 
     let json = json "there will be kats!"
     Successful.ok json    
+    
+let docAddendums =
+    fun (route:Analyzer.RouteInfos) (path:string, verb:HttpVerb, pathDef:PathDefinition) ->
+    
+        // routef params are automatically added to swagger, but you can customize their names like this 
+        let changeParamName oldName newName (parameters:ParamDefinition list) =
+            parameters |> Seq.find (fun p -> p.Name = oldName) |> fun p -> { p with Name = newName }
+    
+        match path, verb, pathDef with
+        | _,_, def when def.OperationId = "say_hello_in_french" ->
+            let firstname = def.Parameters |> changeParamName "arg0" "Firstname"
+            let lastname = def.Parameters |> changeParamName "arg1" "Lastname"
+            "/hello/{Firstname}/{Lastname}", verb, { def with Parameters = [firstname; lastname] }
+        | _ -> path, verb, pathDef
 
+let port = 5000
+
+let docsConfig c = 
+
+    let describeWith desc = 
+        { desc
+            with
+                Title="Sample 1"
+                Description="Create a swagger with Giraffe"
+                TermsOfService="Coucou"
+        } 
+    
+    { c with 
+        Description = describeWith
+        Host = sprintf "localhost:%d" port
+       // DocumentationAddendums = docAddendums
+    }
+    
 let webApp (system : ActorSystem) =
-    choose [
+    swaggerOf (choose [
         GET >=>
             choose [
                 route "/" >=> indexHandler "world"
                 routef "/hello/%s" indexHandler
                 route "/kats" >=> katsHandler 
             ]
-        setStatusCode 404 >=> text "Not Found" ]
+        setStatusCode 404 >=> text "Not Found" ])
+    |> withConfig docsConfig
 
 // ---------------------------------
 // Error handler
