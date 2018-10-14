@@ -2,9 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Aktor.Kote.Akka.FSharp", "Aktor.Kote.Akka.FSharp\Aktor.Kote.Akka.FSharp.fsproj", "{F6EAC238-5ECC-4E8E-8F7A-23E81934DC44}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Aktor.Kote.Giraffe", "Aktor.Kote.Giraffe\src\Aktor.Kote.Giraffe\Aktor.Kote.Giraffe.fsproj", "{99EEEB50-8077-4CD4-824D-BF06EFC2C992}"
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Aktor.Kote.Fsharp", "Aktor.Kote.Fsharp\Aktor.Kote.Fsharp.fsproj", "{26B9A822-F929-47C4-B44B-33411C410627}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Aktor.Kote.Giraffe", "Aktor.Kote.Giraffe\src\Aktor.Kote.Giraffe.fsproj", "{64E0CCBA-DFF9-4977-A485-E0821E8B5C50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,13 +16,13 @@ Global
 		{F6EAC238-5ECC-4E8E-8F7A-23E81934DC44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6EAC238-5ECC-4E8E-8F7A-23E81934DC44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6EAC238-5ECC-4E8E-8F7A-23E81934DC44}.Release|Any CPU.Build.0 = Release|Any CPU
-		{99EEEB50-8077-4CD4-824D-BF06EFC2C992}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{99EEEB50-8077-4CD4-824D-BF06EFC2C992}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{99EEEB50-8077-4CD4-824D-BF06EFC2C992}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{99EEEB50-8077-4CD4-824D-BF06EFC2C992}.Release|Any CPU.Build.0 = Release|Any CPU
 		{26B9A822-F929-47C4-B44B-33411C410627}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{26B9A822-F929-47C4-B44B-33411C410627}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26B9A822-F929-47C4-B44B-33411C410627}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26B9A822-F929-47C4-B44B-33411C410627}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64E0CCBA-DFF9-4977-A485-E0821E8B5C50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64E0CCBA-DFF9-4977-A485-E0821E8B5C50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64E0CCBA-DFF9-4977-A485-E0821E8B5C50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64E0CCBA-DFF9-4977-A485-E0821E8B5C50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
