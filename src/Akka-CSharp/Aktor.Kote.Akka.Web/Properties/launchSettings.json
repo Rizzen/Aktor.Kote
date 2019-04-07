@@ -1,0 +1,12 @@
+﻿{
+  "profiles": {
+    "Aktor.Kote.Akka.Web": {
+      "commandName": "Project",
+      "applicationUrl": "http://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ROUTE_PREFIX" : "api"
+      }
+    }
+  }
+}

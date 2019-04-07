@@ -13,8 +13,12 @@ namespace Aktor.Kote.Akka.Actors
         
         public KoteActor()
         {
-            _hungerControl = Context.System.Scheduler.ScheduleTellRepeatedlyCancelable(TimeSpan.FromSeconds(5),
-                TimeSpan.FromSeconds(5), Self, new GrowHungry(10), Self);
+            _hungerControl = Context.System.Scheduler.ScheduleTellRepeatedlyCancelable(
+                TimeSpan.FromSeconds(5),
+                TimeSpan.FromSeconds(5), 
+                Self, 
+                new GrowHungry(10), 
+                Self);
             
             StartWith(KoteState.Idle, new VitalSigns(5));
             
@@ -53,12 +57,16 @@ namespace Aktor.Kote.Akka.Actors
             
             OnTransition((state, nextState) =>
             {
-                if (state == KoteState.Sleeping)
-                    _log.Warning($"Kote {_name} awake");
+                switch (state)
+                {
+                    case KoteState.Sleeping:
+                        _log.Warning($"Kote {_name} awake");
+                        break;
+                    case KoteState.Walking:
+                        CancelTimer("walkingTimer");
+                        break;
+                }
                 
-                if (state == KoteState.Walking)
-                    CancelTimer("walkingTimer");
-
                 if (nextState == KoteState.Sleeping)
                     _log.Warning($"Kote {_name} is now sleeping");
             });
