@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrleansKat", "OrleansKat\Or
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrleansKat.Core", "OrleansKat.Core\OrleansKat.Core.csproj", "{D0713462-2E94-4FAB-A1C6-AE3B276113C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrleansKat.Api", "OrleansKat.Api\OrleansKat.Api.csproj", "{163E3942-2EA1-4A9D-8ED0-1DD8A6A806CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrleansKat.Domain", "OrleansKat.Domain\OrleansKat.Domain.csproj", "{5EDCC0B6-4FFB-4AEA-847F-A07593C19DFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{D0713462-2E94-4FAB-A1C6-AE3B276113C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0713462-2E94-4FAB-A1C6-AE3B276113C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0713462-2E94-4FAB-A1C6-AE3B276113C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{163E3942-2EA1-4A9D-8ED0-1DD8A6A806CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{163E3942-2EA1-4A9D-8ED0-1DD8A6A806CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{163E3942-2EA1-4A9D-8ED0-1DD8A6A806CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{163E3942-2EA1-4A9D-8ED0-1DD8A6A806CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EDCC0B6-4FFB-4AEA-847F-A07593C19DFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EDCC0B6-4FFB-4AEA-847F-A07593C19DFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EDCC0B6-4FFB-4AEA-847F-A07593C19DFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EDCC0B6-4FFB-4AEA-847F-A07593C19DFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

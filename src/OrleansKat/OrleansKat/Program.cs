@@ -12,18 +12,42 @@ namespace OrleansKat
     {
         static async Task Main(string[] args)
         {
-            var host = await StartSilo();
+            var host = StartSilo();
+            
+            var client = await ConnectClient();
+            for (int i = 0; i < 10000; i++)
+            {
+                var koteGrain = client.GetGrain<IKoteGrain>("Kote" + i);
+                await koteGrain.GetState();
+            }
+            
             Console.WriteLine("\n\n Press Enter to terminate...\n\n");
             Console.ReadLine();
-
+            
             await host.StopAsync();
         }
         
-        private static async Task<ISiloHost> StartSilo()
+        private static async Task<IClusterClient> ConnectClient()
         {
-            // define the cluster configuration
-            var builder = new SiloHostBuilder()
+            var client = new ClientBuilder()
                 .UseLocalhostClustering()
+                .Configure<ClusterOptions>(options =>
+                {
+                    options.ClusterId = "dev";
+                    options.ServiceId = "OrleansKote";
+                })
+                .ConfigureLogging(logging => logging.AddConsole())
+                .Build();
+
+            await client.Connect();
+            Console.WriteLine("Client successfully connected to silo host \n");
+            return client;
+        }
+        
+        private static ISiloHost StartSilo()
+        {
+            var builder = new SiloHostBuilder()
+                .UseLocalhostClustering(siloPort: 11112)
                 .Configure<ClusterOptions>(options =>
                 {
                     options.ClusterId = "dev";
@@ -33,7 +57,7 @@ namespace OrleansKat
                 .ConfigureLogging(logging => logging.AddConsole());
 
             var host = builder.Build();
-            await host.StartAsync();
+            _ = host.StartAsync();
             return host;
         }
     }
