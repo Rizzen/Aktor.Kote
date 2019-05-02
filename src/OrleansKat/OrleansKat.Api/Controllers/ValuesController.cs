@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace OrleansKat.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("kote")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
