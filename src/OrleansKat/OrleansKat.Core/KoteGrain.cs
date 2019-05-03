@@ -12,8 +12,8 @@ namespace OrleansKat.Core
         
         public override Task OnActivateAsync()
         {
-            Console.WriteLine($"Grain {_key} activate");
             _key = this.GetPrimaryKeyString();
+            Console.WriteLine($"Grain {_key} activate");
             return base.OnActivateAsync();
         }
 
